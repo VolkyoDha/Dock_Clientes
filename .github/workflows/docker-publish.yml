@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build, Push and Run Docker Image
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  build-push-run:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,7 +31,11 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: volkyodha/dock_clientes:latest
+          tags: dock_clientes:latest
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 3001:3001 ${{ secrets.DOCKER_USERNAME }}/dock_clientes:latest
+
       - name: Post build
-        run: echo "Docker image build and push completed."
-        
+        run: echo "Docker image build, push, and run completed."
