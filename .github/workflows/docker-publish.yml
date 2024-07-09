@@ -31,7 +31,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: volkyodha/dock_clientes:latest
+          tags: ${{ secrets.DOCKER_USR }}/dock_clientes:latest
 
   run-container:
     runs-on: ubuntu-latest
@@ -46,8 +46,8 @@ jobs:
 
       - name: Run Docker container
         run: |
-          docker pull volkyodha/dock_clientes:latest
-          docker run -d -p 3001:3001 volkyodha/dock_clientes:latest
+          docker build -t ${{ secrets.DOCKER_USR }}/dock_clientes:latest .
+          docker run -p 3001:3001 ${{ secrets.DOCKER_USR }}/dock_clientes:latest
 
       - name: Post build
         run: echo "Docker image build, push, and run completed."
