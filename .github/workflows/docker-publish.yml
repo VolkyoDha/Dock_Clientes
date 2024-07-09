@@ -1,4 +1,4 @@
-name: Build, Push and Run Docker Image
+name: Build and Push Docker Image
 
 on:
   push:
@@ -32,22 +32,5 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USR }}/dock_clientes:latest
-
-  run-container:
-    runs-on: ubuntu-latest
-    needs: build-and-push
-
-    steps:
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-
-      - name: Run Docker container
-        run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/dock_clientes:latest
-          docker run -d -p 3001:3001 ${{ secrets.DOCKER_USERNAME }}/dock_clientes:latest
-
       - name: Post build
-        run: echo "Docker image build, push, and run completed."
+        run: echo "Docker image build and push completed."
