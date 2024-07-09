@@ -31,8 +31,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/dock_clientes:latest
-
+          tags: volkyodha/dock_clientes:latest
       - name: Post build
         run: echo "Docker image build and push completed."
         
