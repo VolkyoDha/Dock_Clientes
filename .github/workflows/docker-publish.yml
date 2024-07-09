@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: Dock_Clientes\Dockerfile
+          file: .\Dockerfile
           push: true
           tags: volkyodha/dock_clientes:latest
 
